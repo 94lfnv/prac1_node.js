@@ -1,19 +1,23 @@
 "use strict";
 
 const id = document.querySelector("#id"),
+  name = document.querySelector("#name"),
   psword = document.querySelector("#psword"),
-  loginBtn = document.querySelector("#button");
+  confirmPsword = document.querySelector("#confirm-psword"),
+  registerBtn = document.querySelector("#button");
 
-loginBtn.addEventListener("click", login);
+registerBtn.addEventListener("click", register);
 
-function login() {
+function register() {
   const req = {
     id: id.value,
+    name: name.value,
     psword: psword.value,
+    confirmPsword: confirmPsword.value,
   };
 
   // 앞서 요청한 아이디와 비밀번호를 서버와 연결해주려면?
-  fetch("/login", {
+  fetch("/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,12 +27,12 @@ function login() {
     .then((res) => res.json())
     .then((res) => {
       if (res.success) {
-        location.href = "/";
+        location.href = "/login";
       } else {
         alert(res.msg);
       }
     })
     .catch((err) => {
-      console.err("로그인 중 에러가 발생했습니다.");
+      console.err("회원가입 중 에러가 발생했습니다.");
     });
 }
